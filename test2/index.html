@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container" id="container">
         <select id="ddValue" onchange="gridSelected()">
             <option value="" disabled selected>Select your option</option>
             <option value="2">2X2</option>
@@ -16,6 +16,10 @@
             <option value="10">10X10</option>
         </select>
         <section class="score-panel">
+            <div>
+                Stage <span class="stage">0</span>
+            </div>
+            
             <span class="moves">0</span> Move(s)
             <div class="restart" onclick=startGame()>
                 <button>Reload</button>
