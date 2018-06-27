@@ -1,0 +1,192 @@
+body {
+     margin: 0;
+     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+     font-size: 1rem;
+     font-weight: 400;
+     line-height: 1.5;
+     color: #212529;
+     text-align: left;
+     background-color: #fff;
+}
+ .container {
+     width: 100%;
+     margin-right: auto;
+     margin-left: auto;
+}
+ article, aside, dialog, figcaption, figure, footer, header, hgroup, main, nav, section {
+     display: block;
+}
+ section,footer{
+     text-align:center;
+}
+ footer{
+     position: absolute;
+     bottom: 0;
+     width: 100%;
+}
+ .rowElements{
+     display: -webkit-box;
+     display: -ms-flexbox;
+     display: flex;
+     -ms-flex-wrap: wrap;
+     flex-wrap: wrap;
+}
+ .homeRight{
+     width:60%;
+}
+ .homeLeft{
+     width:40%;
+}
+ .footerRight{
+     width:70%;
+}
+ .footerLeft{
+     width:30%;
+}
+ .headerSection {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+     height:3px 
+}
+ .headerSection li {
+     float: left;
+     display: block;
+     color: white;
+     text-align: center;
+     padding: 14px 0;
+     text-decoration: none;
+     width: 12.5%;
+}
+ .headerSection li.green{
+     background-color: green;
+}
+ .headerSection li.yellow{
+     background-color: yellow;
+}
+ .headerSection li.red{
+     background-color: red;
+}
+ .headerSection li.blue{
+     background-color: blue;
+}
+ footer::before {
+     content: '';
+     display: inherit;
+     width: 83%;
+     margin: 10px auto;
+     border-top: 2px solid #d0d3da;
+}
+ footer .fa{
+     font-size: 2rem;
+     padding-left: 0;
+     padding-right: 10px;
+}
+ .lg-font-lg{
+     font-size:4rem;
+}
+ .lg-font-sm{
+     font-size:2rem;
+}
+ .one-third-screen {
+     height:460px;
+}
+/* verticle align */
+ .vertical-align-middle {
+     vertical-align: middle;
+}
+ .vertical-align-top {
+     vertical-align: top;
+}
+ .vertical-align-bottom {
+     vertical-align: bottom;
+}
+/* font weight */
+ .font-weight-300 {
+     font-weight:300 
+}
+ .font-weight-400 {
+     font-weight:400 
+}
+ .font-weight-500 {
+     font-weight:500 
+}
+/*Display*/
+ .display-table {
+     display:table !important 
+}
+ .display-table-cell {
+     display:table-cell !important 
+}
+/******* Media Queries *******/
+ @media (max-width: 1300px) {
+     .md-height-350px {
+         height: 350px;
+         margin-top: 34px;
+    }
+     .md-font-lg{
+         font-size:4rem;
+    }
+     .md-font-sm{
+         font-size:2rem;
+    }
+}
+ @media (max-width: 991px) {
+     .sm-font-lg{
+         font-size:2.5rem;
+    }
+     .sm-font-sm{
+         font-size:1.5rem;
+    }
+}
+ @media (max-width: 767px) {
+     .xs-height-auto {
+         height:auto 
+    }
+     .xs-padding-40px-top {
+         padding-top:40px !important;
+    }
+     .xs-padding-50px-bottom {
+         padding-bottom:50px !important;
+    }
+     xs-font-lg{
+         font-size:2rem;
+    }
+     .xs-font-sm{
+         font-size:1rem;
+    }
+}
+ @media (max-width: 468px){
+     .padding-footer{
+         float:none !important;
+    }
+     .homeRight{
+         width:100%;
+    }
+     .homeLeft{
+         width:100%;
+    }
+     .footerRight{
+         width:100%;
+    }
+     .footerLeft{
+         width:100%;
+    }
+}
+ @media (max-width: 768px) and (min-width:469px){
+     .padding-footer{
+         padding-left: 142px;
+    }
+}
+ @media (max-width: 1024px) and (min-width:769px){
+     .padding-footer{
+         padding-left: 276px;
+    }
+}
+ @media (min-width: 1025px){
+     .padding-footer{
+         padding-left: 415px;
+    }
+}
+ 
