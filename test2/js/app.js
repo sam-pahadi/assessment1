@@ -20,7 +20,7 @@ function gridSelected() {
         document.getElementsByTagName("li")[i].style.width = cardsWidth + "px";
     }
     card = document.getElementsByClassName("card");
-    cards = [...card];
+    cards = Array.from(card);
     // loop to add event listeners to each card
     for (var i = 0; i < cards.length; i++) {
         card = cards[i];
@@ -33,20 +33,20 @@ function gridSelected() {
 }
 
 // All cards in game
-const deck = document.getElementById("card-deck");
+var deck = document.getElementById("card-deck");
 
 
-let counter = document.querySelector(".moves");
-let stageCounter = document.querySelector(".stage");
+var counter = document.querySelector(".moves");
+var stageCounter = document.querySelector(".stage");
 
 //variable of matchedCards
-let matchedCard = document.getElementsByClassName("match");
+var matchedCard = document.getElementsByClassName("match");
 
 // close icon in modal
-let closeicon = document.querySelector(".close");
+var closeicon = document.querySelector(".close");
 
 // declare modal
-let modal = document.getElementById("popup1")
+var modal = document.getElementById("popup1")
 
 // array for opened cards
 var openedCards = [];
@@ -56,6 +56,7 @@ function shuffle(array) {
         temporaryValue, randomIndex;
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
+        
         currentIndex -= 1;
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
@@ -73,7 +74,7 @@ function startGame() {
     // remove all exisiting classes
     for (var i = 0; i < cards.length; i++) {
 
-        [].forEach.call(cards, function(item) {
+        cards.forEach(function(item) {
             deck.appendChild(item);
         });
         cards[i].classList.remove("show", "open", "match", "disabled");
@@ -134,14 +135,14 @@ function unmatched() {
 
 //disable cards temporarily
 function disable() {
-    Array.prototype.filter.call(cards, function(card) {
+    cards.forEach(function(card) {
         card.classList.add('disabled');
     });
 }
 
 //enable cards and disable matched cards
 function enable() {
-    Array.prototype.filter.call(cards, function(card) {
+    cards.forEach(function(card) {
         card.classList.remove('disabled');
         for (var i = 0; i < matchedCard.length; i++) {
             matchedCard[i].classList.add("disabled");
@@ -205,7 +206,7 @@ window.onload = function() {
         if (savedGame !== null) {
             document.getElementById("card-deck").innerHTML = savedGame;
             card = document.getElementsByClassName("card");
-            cards = [...card];
+            cards = Array.from(card);
             // loop to add event listeners to each card
             for (var i = 0; i < cards.length; i++) {
                 card = cards[i];
