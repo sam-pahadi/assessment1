@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
     <div class="container" id="container">
-        <select id="ddValue" onchange="gridSelected()">
+        <select id="ddValue" onchange="gridSelected(event)">
             <option value="" disabled selected>Select your option</option>
             <option value="2">2X2</option>
             <option value="4">4X4</option>
@@ -21,8 +22,8 @@
             </div>
             
             <span class="moves">0</span> Move(s)
-            <div class="restart" onclick=startGame()>
-                <button>Reload</button>
+            <div class="restart" onclick=reloadGame()>
+                <button><i class="fa fa-repeat"></i></button>
             </div>
         </section>
         <ul class="deck" id="card-deck">
