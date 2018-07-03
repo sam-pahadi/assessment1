@@ -2,35 +2,7 @@ var card, cards;
 var totalLength;
 var moves = 0;
 var stage = 0;
-
-function gridSelected() {
-    var e = document.getElementById("ddValue");
-    totalLength = e.options[e.selectedIndex].value;
-    document.getElementById("card-deck").innerHTML = " ";
-    localStorage.setItem('totalLength', totalLength);
-    for (var i = 1; i <= (totalLength * totalLength); i++) {
-        if (i <= (totalLength * totalLength) / 2) {
-            document.getElementById("card-deck").innerHTML += "<li class='card' type='" + i + "'>" + i + "</li>";
-            document.getElementById("card-deck").innerHTML += "<li class='card' type='" + i + "'>" + i + "</li>";
-        }
-    }
-    var screenWidth = screen.width;
-    var cardsWidth = (screenWidth / totalLength) - 30;
-    for (var i = 0; i < (totalLength * totalLength); i++) {
-        document.getElementsByTagName("li")[i].style.width = cardsWidth + "px";
-    }
-    card = document.getElementsByClassName("card");
-    cards = Array.from(card);
-    // loop to add event listeners to each card
-    for (var i = 0; i < cards.length; i++) {
-        card = cards[i];
-        card.addEventListener("click", displayCard);
-        card.addEventListener("click", cardOpen);
-        card.addEventListener("click", congratulations);
-    };
-    moves = 0;
-    startGame();
-}
+var tempArray=[];
 
 // All cards in game
 var deck = document.getElementById("card-deck");
@@ -46,6 +18,22 @@ var matchedCard = document.getElementsByClassName("match");
 var closeicon = document.querySelector(".close");
 
 // declare modal
+function gridSelected(event) {
+    tempArray=[]
+    totalLength = event.target.value;
+    localStorage.setItem('totalLength', totalLength);
+    document.getElementById("card-deck").innerHTML = "";
+    for (var i = 1; i <= (totalLength * totalLength); i++) {
+        if (i <= (totalLength * totalLength) / 2) {
+            tempArray.push("<li class='card' type='" + i + "'>" + i + "</li>");
+            tempArray.push("<li class='card' type='" + i + "'>" + i + "</li>");
+        }
+    }
+
+    cards = tempArray;
+    startGame();    
+}
+
 var modal = document.getElementById("popup1")
 
 // array for opened cards
@@ -56,7 +44,6 @@ function shuffle(array) {
         temporaryValue, randomIndex;
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
-        
         currentIndex -= 1;
         temporaryValue = array[currentIndex];
         array[currentIndex] = array[randomIndex];
@@ -67,23 +54,55 @@ function shuffle(array) {
 
 // start game function 
 function startGame() {
+    document.getElementById("card-deck").style.display = "flex";
     resetGame();
     // shuffle deck
     cards = shuffle(cards);
-    deck.innerHTML = "";
-    // remove all exisiting classes
-    for (var i = 0; i < cards.length; i++) {
-
-        cards.forEach(function(item) {
-            deck.appendChild(item);
-        });
-        cards[i].classList.remove("show", "open", "match", "disabled");
-    }
+    cards.forEach(function(item) {
+            deck.innerHTML +=item;
+            deck.classList.remove("show", "open", "match", "disabled", "no-event", "unmatched");
+    });
+    card = document.getElementsByClassName("card");
+            cards = Array.from(card);
+            // loop to add event listeners to each card
+            for (var i = 0; i < cards.length; i++) {
+                card = cards[i];
+                card.addEventListener("click", displayCard);
+                card.addEventListener("click", cardOpen);
+                card.addEventListener("click", congratulations);
+            }
     // reset moves
     moves = 0;
     stage = 0;
     counter.innerHTML = moves;
     stageCounter.innerHTML = stage;
+    setWidthOfCards()
+     
+    
+}
+function setWidthOfCards(){
+    var cardsWidth=0;
+     switch(totalLength){
+        case "2": 
+            cardsWidth=225;
+            break;
+        case "4": 
+            cardsWidth=100;
+            break;
+        case "6": 
+            cardsWidth=57;
+            break;
+            case "8": 
+            cardsWidth=37;
+            break;
+            case "10": 
+            cardsWidth=25;
+            break;
+    }
+    for (var i = 0; i < (totalLength * totalLength); i++) {
+        document.getElementsByTagName("li")[i].style.width = cardsWidth + "px";
+        document.getElementsByTagName("li")[i].style.height = cardsWidth + "px";
+    }
 }
 
 var displayCard = function() {
@@ -105,7 +124,7 @@ function cardOpen() {
             unmatched();
         }
     }
-    localStorage.setItem('totalLength', totalLength);
+    
 };
 
 //when cards match
@@ -130,7 +149,7 @@ function unmatched() {
         openedCards = [];
         saveGame();
     }, 1000);
-
+    
 }
 
 //disable cards temporarily
@@ -144,9 +163,6 @@ function disable() {
 function enable() {
     cards.forEach(function(card) {
         card.classList.remove('disabled');
-        for (var i = 0; i < matchedCard.length; i++) {
-            matchedCard[i].classList.add("disabled");
-        }
     });
 }
 
@@ -166,35 +182,54 @@ function countStage() {
 // congratulation message
 function congratulations() {
     if (matchedCard.length == (totalLength * totalLength)) {
+        setTimeout(function() {
         // show congratulations modal
         modal.classList.add("show");
         document.getElementById("finalMove").innerHTML = moves;
         closeModal();
-    };
+            resetGame()
+            }, 500);
+    }
+                    
 }
 
 //close icon 
 function closeModal() {
     closeicon.addEventListener("click", function(e) {
         modal.classList.remove("show");
-        resetGame();
-        startGame();
+        reloadGame();
     });
 }
-
+function reloadGame(){
+    cards = shuffle(cards);
+    deck.innerHTML=""
+    cards.forEach(function(item) {
+        item.classList.remove("show", "open", "match", "disabled", "no-event", "unmatched");
+            deck.innerHTML +=item.outerHTML;
+            
+    });
+    addEventListners()
+    moves = 0;
+    stage = 0;
+    counter.innerHTML = moves;
+    stageCounter.innerHTML = stage;
+    resetGame();
+}
 function resetGame() {
     localStorage.removeItem('gameGrid');
-    localStorage.removeItem('gameStage');
-    localStorage.removeItem('totalMoves');
+     localStorage.removeItem('gameStage');
+     localStorage.removeItem('totalMoves');
+     localStorage.removeItem('totalLength');
 }
 
+
 function saveGame() {
+    localStorage.setItem('totalLength', totalLength);
     localStorage.setItem('gameGrid', document.getElementById("card-deck").innerHTML);
     localStorage.setItem('gameStage', stage);
     localStorage.setItem('totalMoves', moves);
 }
 window.onload = function() {
-
     savedGame = localStorage.getItem('gameGrid');
     stageCounter.innerHTML = localStorage.getItem('gameStage');
     stage = localStorage.getItem('gameStage');
@@ -203,9 +238,13 @@ window.onload = function() {
     totalLength = localStorage.getItem('totalLength');
     if (savedGame != null) {
         document.getElementById("ddValue").value = totalLength
-        if (savedGame !== null) {
-            document.getElementById("card-deck").innerHTML = savedGame;
-            card = document.getElementsByClassName("card");
+        document.getElementById("card-deck").innerHTML = savedGame;
+        document.getElementById("card-deck").style.display = "flex";
+        addEventListners();
+    }
+};
+function addEventListners(){
+    card = document.getElementsByClassName("card");
             cards = Array.from(card);
             // loop to add event listeners to each card
             for (var i = 0; i < cards.length; i++) {
@@ -214,6 +253,4 @@ window.onload = function() {
                 card.addEventListener("click", cardOpen);
                 card.addEventListener("click", congratulations);
             };
-        }
-    }
-};
+}
