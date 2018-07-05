@@ -76,7 +76,7 @@ function startGame() {
     stage = 0;
     counter.innerHTML = moves;
     stageCounter.innerHTML = stage;
-    setWidthOfCards()
+    setWidthOfCards();
      
     
 }
@@ -124,7 +124,6 @@ function cardOpen() {
             unmatched();
         }
     }
-    
 };
 
 //when cards match
@@ -189,8 +188,7 @@ function congratulations() {
         closeModal();
             resetGame()
             }, 500);
-    }
-                    
+    }                   
 }
 
 //close icon 
@@ -245,12 +243,12 @@ window.onload = function() {
 };
 function addEventListners(){
     card = document.getElementsByClassName("card");
-            cards = Array.from(card);
-            // loop to add event listeners to each card
-            for (var i = 0; i < cards.length; i++) {
-                card = cards[i];
-                card.addEventListener("click", displayCard);
-                card.addEventListener("click", cardOpen);
-                card.addEventListener("click", congratulations);
-            };
+    cards = Array.from(card);
+    // loop to add event listeners to each card
+    for (var i = 0; i < cards.length; i++) {
+        card = cards[i];
+        card.addEventListener("click", displayCard);
+        card.addEventListener("click", cardOpen);
+        card.addEventListener("click", congratulations);
+    }
 }
