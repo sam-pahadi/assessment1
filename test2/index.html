@@ -8,6 +8,7 @@
 </head>
 <body>
     <div class="container" id="container">
+        <div class="select">
         <select id="ddValue" onchange="gridSelected(event)">
             <option value="" disabled selected>Select your option</option>
             <option value="2">2X2</option>
@@ -16,12 +17,13 @@
             <option value="8">8X8</option>
             <option value="10">10X10</option>
         </select>
+        </div>
         <section class="score-panel">
             <div>
-                Stage <span class="stage">0</span>
+                Stage- <span class="stage">0</span>
             </div>
             
-            <span class="moves">0</span> Move(s)
+             Move(s)- <span class="moves">0</span>
             <div class="restart" onclick=reloadGame()>
                 <button><i class="fa fa-repeat"></i></button>
             </div>
